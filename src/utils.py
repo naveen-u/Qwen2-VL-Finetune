@@ -1,6 +1,6 @@
 from peft import PeftModel
 import torch
-from transformers import BitsAndBytesConfig, Qwen2VLForConditionalGeneration, AutoProcessor, AutoConfig, Qwen2_5_VLForConditionalGeneration
+from transformers import BitsAndBytesConfig, Qwen2VLForConditionalGeneration, AutoProcessor, AutoConfig #, Qwen2_5_VLForConditionalGeneration
 import warnings
 import os
 import json
@@ -44,7 +44,8 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
         processor = AutoProcessor.from_pretrained(model_base)
         print('Loading Qwen2-VL from base model...')
         if "Qwen2.5" in model_base:
-            model = Qwen2_5_VLForConditionalGeneration.from_pretrained(model_base, low_cpu_mem_usage=True, config=lora_cfg_pretrained, **kwargs)
+            pass
+            # model = Qwen2_5_VLForConditionalGeneration.from_pretrained(model_base, low_cpu_mem_usage=True, config=lora_cfg_pretrained, **kwargs)
         else:
             model = Qwen2VLForConditionalGeneration.from_pretrained(model_base, low_cpu_mem_usage=True, config=lora_cfg_pretrained, **kwargs)
         token_num, tokem_dim = model.lm_head.out_features, model.lm_head.in_features
@@ -72,8 +73,9 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
             config = json.load(f)
 
         if "Qwen2.5" in config["_name_or_path"]:
-            processor = AutoProcessor.from_pretrained(model_path)
-            model = Qwen2_5_VLForConditionalGeneration.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
+            pass
+            # processor = AutoProcessor.from_pretrained(model_path)
+            # model = Qwen2_5_VLForConditionalGeneration.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
 
         else:
             processor = AutoProcessor.from_pretrained(model_path)
